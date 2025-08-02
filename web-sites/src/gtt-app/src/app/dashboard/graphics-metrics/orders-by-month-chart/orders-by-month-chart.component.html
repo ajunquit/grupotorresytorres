@@ -1,4 +1,7 @@
 <div class="bg-white rounded-xl shadow p-6">
-  <h2 class="text-lg font-semibold mb-4">Pedidos por mes</h2>
-  <canvas #ordersChart class="w-full max-w-full h-[300px]"></canvas>
+  <h2 class="text-lg font-semibold mb-4">Pedidos Mensuales</h2>
+  <app-bar-chart [title]="'Total de pedidos durante los últimos 6 meses'" [labels]="['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun']"
+    [data]="[12, 19, 9, 15, 22, 13]" [label]="'Pedidos'" [backgroundColor]="'rgba(59,130,246,0.5)'"
+    [borderColor]="'rgba(59,130,246,1)'" />
+
 </div>
