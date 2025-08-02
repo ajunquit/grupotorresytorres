@@ -1,4 +1,6 @@
 <div class="bg-white rounded-lg shadow-md p-4">
   <h3 class="text-lg font-semibold mb-4">Top 5 Clientes por Volumen</h3>
-  <canvas #topCustomersChart width="400" height="400"></canvas>
+  <app-doughnut-chart [title]="'Distribución de Clientes'"
+    [labels]="['Cliente A', 'Cliente B', 'Cliente C', 'Cliente D', 'Cliente E']" [data]="[1000, 950, 800, 700, 600]"
+    [colors]="['#6366F1', '#10B981', '#F59E0B', '#EF4444', '#3B82F6']" />
 </div>

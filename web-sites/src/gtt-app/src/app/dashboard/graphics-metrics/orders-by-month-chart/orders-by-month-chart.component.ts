@@ -19,6 +19,7 @@ Chart.register(...registerables);
   templateUrl: './orders-by-month-chart.component.html',
 })
 export class OrdersByMonthChartComponent implements AfterViewInit, OnDestroy {
+  // PEDIDOS POR MES
   @ViewChild('ordersChart') chartRef!: ElementRef<HTMLCanvasElement>;
   chart!: Chart;
 
