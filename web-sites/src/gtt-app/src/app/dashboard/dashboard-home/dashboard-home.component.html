@@ -1,0 +1,24 @@
+<div class="mb-6">
+  <h2 class="text-2xl font-semibold text-blue-700">Resumen General</h2>
+</div>
+
+<div class="grid grid-cols-4 gap-4">
+  <app-dashboard-card icon="👥" label="Total Clientes" [value]="stats.totalClients" />
+  <app-dashboard-card icon="📦" label="Pedidos Totales" [value]="stats.totalOrders" />
+  <app-dashboard-card icon="✅" label="Completados" [value]="stats.completedOrders" />
+  <app-dashboard-card icon="⏳" label="Pendientes" [value]="stats.pendingOrders" />
+</div>
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+  <app-orders-by-month-chart />
+  <app-clients-by-month-chart />
+</div>
+<div class="grid grid-cols-1 gap-4 mt-4">
+  <app-orders-by-month-chart />
+ 
+</div>
+
+<div class="grid grid-cols-2 gap-4 mt-4">
+  <app-orders-by-month-chart />
+  <app-orders-by-month-chart />
+</div>

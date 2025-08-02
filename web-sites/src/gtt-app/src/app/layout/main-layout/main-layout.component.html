@@ -1,0 +1,29 @@
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-white shadow-md hidden md:block">
+    <div class="h-16 flex items-center justify-center font-bold text-blue-600 text-lg">
+      GTT-APP
+    </div>
+    <nav class="p-4">
+      <a routerLink="/dashboard" routerLinkActive="font-bold text-blue-600"
+         class="block py-2 px-4 rounded hover:bg-blue-50">Dashboard</a>
+      <a routerLink="/customers" routerLinkActive="font-bold text-blue-600"
+         class="block py-2 px-4 rounded hover:bg-blue-50">Clientes</a>
+      <a routerLink="/orders" routerLinkActive="font-bold text-blue-600"
+         class="block py-2 px-4 rounded hover:bg-blue-50">Pedidos</a>
+    </nav>
+  </aside>
+
+  <!-- Main content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <header class="h-16 bg-white shadow flex items-center px-4">
+      <h1 class="text-xl font-semibold text-gray-700">Panel de Administración</h1>
+    </header>
+
+    <!-- Content -->
+    <main class="p-6 overflow-y-auto flex-1">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
