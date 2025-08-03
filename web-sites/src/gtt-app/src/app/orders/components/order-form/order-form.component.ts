@@ -46,6 +46,7 @@ export class OrderFormComponent {
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['order'] && !changes['order'].firstChange) {
       this.prepareForm();
+      this.patchForm(this.order);
     }
   }
 
@@ -67,11 +68,28 @@ export class OrderFormComponent {
       orderNumber: [this.order.orderNumber || '', Validators.required],
       customerId: [this.order.customerId || '', Validators.required],
       customerName: [this.order.customerName || ''],
-      orderDate: [this.order.orderDate || ''],
+      orderDate: [this.order.orderDate || '', Validators.required],
       deliveryDate: [this.order.deliveryDate || ''],
-      totalAmount: [this.order.totalAmount || ''],
-      status: [this.order.status || ''],
-      notes: [this.order.orderDate || ''],
+      totalAmount: [this.order.totalAmount || '', Validators.required],
+      status: [this.order.status || '', Validators.required],
+      notes: [this.order.notes || ''],
+    });
+  }
+
+  private formatDate(date: Date | undefined): string | null {
+    if (!date) return null;
+    return date.toISOString().split('T')[0];
+  }
+
+  private patchForm(order: Order) {
+    this.orderForm.patchValue({
+      orderNumber: order.orderNumber,
+      customerId: order.customerId,
+      orderDate: this.formatDate(order.orderDate),
+      deliveryDate: this.formatDate(order.deliveryDate),
+      totalAmount: order.totalAmount,
+      status: order.status,
+      notes: order.notes,
     });
   }
 }

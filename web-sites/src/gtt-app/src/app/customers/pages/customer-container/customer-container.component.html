@@ -1,8 +1,8 @@
 <div class="flex items-center justify-between mb-6">
   <h2 class="text-2xl font-semibold text-blue-700">{{title}}</h2>
-  <button
-    (click)="onNewCustomer()"
-    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow-md transition duration-200">
+  <button (click)="onNewCustomer()"
+    class="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded shadow-md transition duration-200">
+    <span class="text-xl">➕</span>
     Nuevo
   </button>
 </div>
@@ -11,6 +11,7 @@
   <app-customer-list [customers]="customers" (editAction)="handleEditAction($event)"></app-customer-list>
 </div>
 
-<app-modal [title]="isNewCustomer ? 'Crear Cliente' : 'Editar Cliente'" [show]="isModalOpen" (modalAction)="handleModalAction($event)">
+<app-modal [title]="isNewCustomer ? 'Crear Cliente' : 'Editar Cliente'" [show]="isModalOpen"
+  (modalAction)="handleModalAction($event)">
   <app-customer-form [customer]="currentCustomer" (formSubmit)="handleSaveAction($event)"></app-customer-form>
 </app-modal>

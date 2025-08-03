@@ -5,7 +5,7 @@ export const MOCK_ORDERS: Order[] = [
   {
     id: crypto.randomUUID(),
     orderNumber: 'ORD-1001',
-    customerId: 'CUST-001',
+    customerId: '00862859-a1be-4288-9562-822589eaaf63',
     customerName: 'Juan Pérez',
     orderDate: new Date('2025-07-01'),
     deliveryDate: new Date('2025-07-05'),
@@ -16,7 +16,7 @@ export const MOCK_ORDERS: Order[] = [
   {
     id: crypto.randomUUID(),
     orderNumber: 'ORD-1002',
-    customerId: 'CUST-002',
+    customerId: '00862859-a1be-4288-9562-822589eaaf63',
     customerName: 'María López',
     orderDate: new Date('2025-07-02'),
     deliveryDate: new Date('2025-07-07'),
@@ -206,7 +206,7 @@ export const MOCK_ORDERS: Order[] = [
 ];
 
 export const MOCK_ORDER_STATUS_OPTIONS = [
-  { label: 'Pendiente', value: 'Pendiente' },
-  { label: 'Completado', value: 'Completado' },
-  { label: 'Cancelado', value: 'Cancelado' },
+  { label: 'Pendiente', value: 'pendiente' },
+  { label: 'Completado', value: 'completado' },
+  { label: 'Cancelado', value: 'cancelado' },
 ];
