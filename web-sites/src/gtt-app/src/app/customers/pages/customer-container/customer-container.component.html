@@ -1,0 +1,16 @@
+<div class="flex items-center justify-between mb-6">
+  <h2 class="text-2xl font-semibold text-blue-700">{{title}}</h2>
+  <button
+    (click)="onNewCustomer()"
+    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow-md transition duration-200">
+    Nuevo
+  </button>
+</div>
+
+<div class="grid grid-cols-1 gap-4 mt-6">
+  <app-customer-list [customers]="customers"></app-customer-list>
+</div>
+
+<app-modal [title]="isNewCustomer ? 'Crear Cliente' : 'Editar Cliente'" [show]="isModalOpen" (modalAction)="handleModalAction($event)">
+  <app-customer-form [customer]="currentCustomer" (formSubmit)="handleFormSubmit($event)"></app-customer-form>
+</app-modal>

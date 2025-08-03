@@ -22,7 +22,8 @@ import { AverageDeliveryTimeChartComponent } from '../graphics-metrics/average-d
   templateUrl: './dashboard-home.component.html',
 })
 export class DashboardHomeComponent {
-  stats = {
+  public title: string = 'Resumen General';
+  public stats = {
     totalClients: 125,
     totalOrders: 342,
     completedOrders: 280,
