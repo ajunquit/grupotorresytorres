@@ -9,7 +9,11 @@ import { Router, RouterModule, RouterOutlet } from '@angular/router';
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent implements OnInit {
+  public isSidebarOpen: boolean = true;
+  public userName: string = '';
+
   constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.internalInit();
   }
@@ -25,10 +29,7 @@ export class MainLayoutComponent implements OnInit {
     }
   }
 
-  isSidebarOpen = true;
-  public userName = '';
-
-  toggleSidebar() {
+  public toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 

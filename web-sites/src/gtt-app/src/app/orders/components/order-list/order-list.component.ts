@@ -1,17 +1,25 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Order } from '../../models/order.model';
 import { OrderConfig } from '../../models/order-config.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-order-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.scss',
 })
-export class OrderListComponent {
+export class OrderListComponent implements OnInit, OnDestroy {
   @Input()
   orders!: Order[];
 
@@ -22,11 +30,58 @@ export class OrderListComponent {
     title: 'Pedidos',
   };
 
-  onEditOrder(order: Order): void {
+  public searchControl: FormControl = new FormControl('');
+  public filteredOrders: Order[] = [];
+
+  private subscription?: Subscription;
+
+  ngOnInit(): void {
+    this.internalInit();
+  }
+
+  // mata la subscription
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
+
+  public internalInit(): void {
+    this.setupEvents();
+    this.filteredOrders = this.orders;
+  }
+
+  public setupEvents(): void {
+    this.listenInput();
+  }
+
+  public listenInput(): void {
+    this.subscription = this.searchControl.valueChanges.subscribe((value) => {
+      this.applyFilter(value || '');
+    });
+  }
+
+  public applyFilter(value: string): void {
+    const text = value.toLowerCase().trim();
+
+    this.filteredOrders = this.orders.filter((order) => {
+      const orderNumber = order.orderNumber?.toString() ?? '';
+      const customer = order.customerName?.toLowerCase() ?? '';
+      const date = new Date(order.orderDate).toISOString().split('T')[0];
+      const status = order.status?.toLowerCase() ?? '';
+
+      return (
+        orderNumber.includes(text) ||
+        customer.includes(text) ||
+        date.includes(text) ||
+        status.includes(text)
+      );
+    });
+  }
+
+  public onEditOrder(order: Order): void {
     this.editOrder(order);
   }
 
-  onDeleteOrder(order: Order) {
+  public onDeleteOrder(order: Order) {
     this.orders = this.orders.filter((c) => c !== order);
   }
 
