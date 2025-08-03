@@ -8,9 +8,9 @@ import {
   Output,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Order } from '../../models/order.model';
-import { OrderConfig } from '../../models/order-config.model';
 import { Subscription } from 'rxjs';
+import { OrderConfig } from '../../models/order-config.model';
+import { Order } from '../../models/order.model';
 
 @Component({
   selector: 'app-order-list',
