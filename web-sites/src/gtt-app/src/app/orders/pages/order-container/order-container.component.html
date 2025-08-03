@@ -1,0 +1,16 @@
+<div class="flex items-center justify-between mb-6">
+  <h2 class="text-2xl font-semibold text-blue-700">{{title}}</h2>
+  <button
+    (click)="onNewOrder()"
+    class="flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded shadow-md transition duration-200">
+    Nuevo
+  </button>
+</div>
+
+<div class="grid grid-cols-1 gap-4 mt-6">
+    <app-order-list [orders]="orders" (editAction)="handleEditAction($event)"></app-order-list>
+</div>
+
+<app-modal [title]="isNewOrder ? 'Crear Orden' : 'Editar Orden'" [show]="isModalOpen" (modalAction)="handleModalAction($event)">
+  <app-order-form [order]="currentOrder" (formSubmit)="handleSaveAction($event)"></app-order-form>
+</app-modal>

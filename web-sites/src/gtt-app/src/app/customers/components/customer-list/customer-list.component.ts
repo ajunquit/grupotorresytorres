@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Customer } from '../../models/customer.model';
 
@@ -9,14 +9,14 @@ import { Customer } from '../../models/customer.model';
   imports: [CommonModule, FormsModule],
   templateUrl: './customer-list.component.html',
 })
-export class CustomerListComponent implements OnInit {
+export class CustomerListComponent {
   @Input()
   customers!: Customer[];
 
   @Output()
   editAction = new EventEmitter<Customer>();
 
-  ngOnInit() {}
+  public title: string = 'Clientes';
 
   onEditCustomer(customer: Customer): void {
     this.editCustomer(customer);

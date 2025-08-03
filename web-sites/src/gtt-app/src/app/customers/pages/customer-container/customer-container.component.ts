@@ -1,11 +1,12 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ModalAction } from '../../../shared/enums/modal-action.enum';
 import { CustomerFormComponent } from '../../components/customer-form/customer-form.component';
 import { CustomerListComponent } from '../../components/customer-list/customer-list.component';
 import { Customer } from '../../models/customer.model';
 import { CustomerService } from '../../services/customer.service';
-import { HttpClientModule } from '@angular/common/http';
+import { MOCK_CUSTOMERS } from '../../models/customer-data-mock';
 
 @Component({
   selector: 'app-customer-container',
@@ -20,10 +21,16 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrl: './customer-container.component.scss',
 })
 export class CustomerContainerComponent implements OnInit {
-  private customerService = inject(CustomerService);
+  @ViewChild(CustomerFormComponent)
+  customerFormComponent!: CustomerFormComponent;
+
+  public title: string = 'Gestión de Clientes';
+  public isModalOpen: boolean = false;
+  public isNewCustomer: boolean = false;
+  public currentCustomer: Customer = this.emptyCustomer();
   public customers: Customer[] = [];
 
-  constructor() {}
+  constructor(private customerService: CustomerService) {}
 
   ngOnInit(): void {
     this.internalinit();
@@ -34,36 +41,8 @@ export class CustomerContainerComponent implements OnInit {
   }
 
   private getCustomers(): Customer[] {
-    // Datos quemados por ahora
-    return [
-      {
-        id: '00862859-a1be-4288-9562-822589eaaf63',
-        name: 'Juan Pérez',
-        email: 'juan@example.com',
-        phone: '0987654321',
-      },
-      {
-        id: 'add64c14-d486-46ec-98b4-40f9639f5505',
-        name: 'Ana García',
-        email: 'ana@example.com',
-        phone: '0912345678',
-      },
-      {
-        id: '40fcfca6-c2bd-4511-8b54-ecc813d74a7e',
-        name: 'Carlos Torres',
-        email: 'carlos@example.com',
-        phone: '0954321890',
-      },
-    ];
+    return MOCK_CUSTOMERS;
   }
-
-  @ViewChild(CustomerFormComponent)
-  customerFormComponent!: CustomerFormComponent;
-
-  public title: string = 'Gestion de Clientes';
-  public isModalOpen: boolean = false;
-  public currentCustomer: Customer = this.emptyCustomer();
-  public isNewCustomer: boolean = false;
 
   public onNewCustomer(): void {
     this.currentCustomer = this.emptyCustomer();
