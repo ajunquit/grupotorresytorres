@@ -9,6 +9,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../model/user.model';
+import { LoginRequest } from '../../model/login.model';
 
 @Component({
   selector: 'app-login',
@@ -42,15 +43,20 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.value;
-      this.authService.login(email, password).subscribe({
-        next: (user) => this.login(user),
+      const request: LoginRequest = this.getRequest();
+      this.authService.login(request).subscribe({
+        next: (user: User) => this.onSuccess(user),
         error: (err) => console.error('Error al iniciar sesión:', err),
       });
     }
   }
 
-  private login(user: User): void {
+  private getRequest(): LoginRequest {
+    const { email, password } = this.loginForm.value;
+    return { email: email, password: password } as LoginRequest;
+  }
+
+  private onSuccess(user: User): void {
     this.authenticatedUser = user;
     this.persistToken();
     this.redirectTo('/dashboard');
@@ -58,7 +64,7 @@ export class LoginComponent {
 
   private persistToken() {
     localStorage.setItem('user', JSON.stringify(this.authenticatedUser));
-    localStorage.setItem('token', 'fakeToken');
+    localStorage.setItem('token', this.authenticatedUser.token);
   }
 
   private redirectTo(url: string): void {

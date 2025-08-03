@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { User } from '../model/user.model';
-import { delay, Observable, of, throwError } from 'rxjs';
+import { LoginRequest } from '../model/login.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private mockUser: User = {
-    id: 'u123',
-    email: 'admin@admin.com',
-    name: 'Administrador',
-  };
+  private readonly baseUrl = 'https://localhost:7175/api/auth';
 
-  login(email: string, password: string): Observable<User> {
-    if (email === this.mockUser.email && password === 'admin') {
-      return of(this.mockUser).pipe(delay(1000));
-    } else {
-      return throwError(() => new Error('Credenciales inválidas'));
-    }
+  constructor(private http: HttpClient) {}
+
+  login(request: LoginRequest): Observable<User> {
+    const url = `${this.baseUrl}/login`;
+    return this.http.post<User>(url, request);
   }
 }
