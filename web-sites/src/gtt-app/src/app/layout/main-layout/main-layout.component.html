@@ -1,22 +1,5 @@
 <div class="flex h-screen bg-gray-100">
-  <!-- Sidebar -->
-  <aside class="bg-white shadow-md transition-all duration-300" [ngClass]="{
-      'w-64 block': isSidebarOpen,
-      'w-0 hidden': !isSidebarOpen
-    }">
-    <div class="h-16 flex items-center justify-center font-bold text-blue-600 text-lg">
-      GTT-APP
-    </div>
-    <nav class="p-4">
-      <a routerLink="/dashboard" routerLinkActive="font-bold text-blue-600"
-        class="block py-2 px-4 rounded hover:bg-blue-50">📊 Dashboard</a>
-      <a routerLink="/customers" routerLinkActive="font-bold text-blue-600"
-        class="block py-2 px-4 rounded hover:bg-blue-50">👥 Clientes</a>
-      <a routerLink="/orders" routerLinkActive="font-bold text-blue-600"
-        class="block py-2 px-4 rounded hover:bg-blue-50">📦 Pedidos</a>
-    </nav>
-  </aside>
-
+  <app-sidebar [isSidebarOpen]="isSidebarOpen"></app-sidebar>
   <!-- Main content -->
   <div class="flex-1 flex flex-col">
     <!-- Header -->
@@ -26,7 +9,6 @@
       </button>
 
       <h1 class="text-xl font-semibold text-gray-700">{{userName}}</h1>
-      <!-- flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-full shadow-md transition duration-200 -->
       <button (click)="logout()" class="text-white hover:bg-red-500 bg-red-400 py-2 font-medium px-4 rounded-full  ">
         🚪 Salir
       </button>

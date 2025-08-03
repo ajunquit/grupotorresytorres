@@ -1,1 +1,16 @@
-<p>sidebar works!</p>
+<aside class="bg-white shadow-md transition-all duration-300 h-screen" [ngClass]="{
+      'w-55 block': isSidebarOpen,
+      'w-0 hidden': !isSidebarOpen
+    }">
+    <div class="h-16 flex items-center justify-center font-bold text-blue-600 text-lg">
+        {{title}}
+    </div>
+    <nav class="p-4">
+        <a routerLink="/dashboard" routerLinkActive="font-bold text-blue-600"
+            class="block py-2 px-4 rounded hover:bg-blue-50">📊 Dashboard</a>
+        <a routerLink="/customers" routerLinkActive="font-bold text-blue-600"
+            class="block py-2 px-4 rounded hover:bg-blue-50">👥 Clientes</a>
+        <a routerLink="/orders" routerLinkActive="font-bold text-blue-600"
+            class="block py-2 px-4 rounded hover:bg-blue-50">📦 Pedidos</a>
+    </nav>
+</aside>

@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterModule],
+  imports: [CommonModule, RouterOutlet, SidebarComponent],
   templateUrl: './main-layout.component.html',
 })
 export class MainLayoutComponent implements OnInit {
@@ -29,12 +30,12 @@ export class MainLayoutComponent implements OnInit {
     }
   }
 
-  public toggleSidebar(): void {
-    this.isSidebarOpen = !this.isSidebarOpen;
-  }
-
   public logout(): void {
     localStorage.clear();
     this.router.navigate(['login']);
+  }
+
+  public toggleSidebar(): void {
+    this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

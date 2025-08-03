@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ModalAction } from '../../enums/modal-action.enum';
 
 @Component({
@@ -14,15 +14,15 @@ export class ModalComponent {
 
   @Output() modalAction = new EventEmitter<ModalAction>();
 
-  onClose() {
+  public onClose(): void {
     this.modalAction.emit(ModalAction.Cancel);
   }
 
-  onSave() {
+  public onSave(): void {
     this.modalAction.emit(ModalAction.Save);
   }
 
-  onBackdropClick(event: MouseEvent) {
+  public onBackdropClick(event: MouseEvent): void {
     if ((event.target as HTMLElement).classList.contains('modal-backdrop')) {
       this.modalAction.emit(ModalAction.BackDropClick);
     }
