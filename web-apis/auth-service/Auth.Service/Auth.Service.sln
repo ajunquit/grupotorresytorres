@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{122EF033-50C8-440D-BE88-3B84FC3BE0B4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Auth.Service.API", "src\Auth.Service.API\Auth.Service.API.csproj", "{E24B4344-7CEE-4323-AAD9-B7D72B0BAF73}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E24B4344-7CEE-4323-AAD9-B7D72B0BAF73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E24B4344-7CEE-4323-AAD9-B7D72B0BAF73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E24B4344-7CEE-4323-AAD9-B7D72B0BAF73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E24B4344-7CEE-4323-AAD9-B7D72B0BAF73}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E24B4344-7CEE-4323-AAD9-B7D72B0BAF73} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6AF1B30A-2B65-42E1-8076-0D9B669D0A7A}
+	EndGlobalSection
+EndGlobal
