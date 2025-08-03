@@ -8,11 +8,4 @@ export const customerRoutes: Routes = [
         (x) => x.CustomerContainerComponent
       ),
   },
-  {
-    path: 'customers/new',
-    loadComponent: () =>
-      import('./components/customer-form/customer-form.component').then(
-        (x) => x.CustomerFormComponent
-      ),
-  },
 ];

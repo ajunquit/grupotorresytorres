@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -13,7 +14,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { Customer } from '../../models/customer.model';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-customer-form',
@@ -58,6 +58,7 @@ export class CustomerFormComponent implements OnInit {
 
   private prepareForm(): void {
     this.customerForm = this.formBuilder.group({
+      id: [this.customer.id || ''],
       name: [this.customer.name || '', Validators.required],
       email: [
         this.customer.email || '',

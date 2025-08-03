@@ -1,11 +1,11 @@
-import { HttpClientModule } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ModalAction } from '../../../shared/enums/modal-action.enum';
 import { CustomerFormComponent } from '../../components/customer-form/customer-form.component';
 import { CustomerListComponent } from '../../components/customer-list/customer-list.component';
 import { Customer } from '../../models/customer.model';
 import { CustomerService } from '../../services/customer.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-customer-container',
@@ -20,9 +20,10 @@ import { CustomerService } from '../../services/customer.service';
   styleUrl: './customer-container.component.scss',
 })
 export class CustomerContainerComponent implements OnInit {
+  private customerService = inject(CustomerService);
   public customers: Customer[] = [];
 
-  constructor(private customerService: CustomerService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.internalinit();
@@ -36,19 +37,19 @@ export class CustomerContainerComponent implements OnInit {
     // Datos quemados por ahora
     return [
       {
-        id: '',
+        id: '00862859-a1be-4288-9562-822589eaaf63',
         name: 'Juan Pérez',
         email: 'juan@example.com',
         phone: '0987654321',
       },
       {
-        id: '',
+        id: 'add64c14-d486-46ec-98b4-40f9639f5505',
         name: 'Ana García',
         email: 'ana@example.com',
         phone: '0912345678',
       },
       {
-        id: '',
+        id: '40fcfca6-c2bd-4511-8b54-ecc813d74a7e',
         name: 'Carlos Torres',
         email: 'carlos@example.com',
         phone: '0954321890',
@@ -83,31 +84,52 @@ export class CustomerContainerComponent implements OnInit {
     this.customerFormComponent.onSubmit();
   }
 
-  public handleSaveAction(customer: Customer) {
-    if (customer && this.isNewCustomer) {
-      this.customerService.create(customer).subscribe({
-        next: () => {
-          this.loadCustomers();
-          this.showModal(false);
-          this.currentCustomer = this.emptyCustomer();
-        },
-        error: (err) => console.error('Error al crear cliente ', err),
-      });
+  public handleSaveAction(customer: Customer): void {
+    if (!customer) return;
+
+    if (this.isNewCustomer) {
+      this.handleCreateCustomer(customer);
+    } else if (customer.id) {
+      this.handleUpdateCustomer(customer);
     }
   }
 
-  public handleEditAction(customer: Customer) {
-    if (customer && customer.id && !this.isNewCustomer) {
-      this.customerService.update(customer.id, customer).subscribe({
-        next: () => {
-          this.loadCustomers();
-          this.isNewCustomer = false;
-          this.currentCustomer = customer;
-          this.showModal(true);
-        },
-        error: (err) => console.error('Error al editar ', err),
-      });
+  private handleCreateCustomer(customer: Customer): void {
+    this.customerService.create(customer).subscribe({
+      next: () => this.onCustomerActionSuccess(true),
+      error: (err) => this.handleError(err, 'create'),
+    });
+  }
+
+  private handleUpdateCustomer(customer: Customer): void {
+    if (!customer.id) return;
+
+    this.customerService.update(customer.id, customer).subscribe({
+      next: () => this.onCustomerActionSuccess(false),
+      error: (err) => this.handleError(err, 'update'),
+    });
+  }
+
+  private onCustomerActionSuccess(isNew: boolean): void {
+    this.loadCustomers();
+    if (isNew) {
+      this.resetCustomerForm();
     }
+  }
+
+  private resetCustomerForm(): void {
+    this.showModal(false);
+    this.currentCustomer = this.emptyCustomer();
+  }
+
+  private handleError(error: any, action: string): void {
+    console.error(`Error al ${action} cliente`, error);
+  }
+
+  public handleEditAction(customer: Customer) {
+    this.isNewCustomer = false;
+    this.currentCustomer = customer;
+    this.showModal(true);
   }
 
   private loadCustomers() {
