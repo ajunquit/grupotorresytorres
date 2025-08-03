@@ -57,7 +57,7 @@ export class CustomerContainerComponent implements OnInit {
 
   public onNewCustomer(): void {
     this.currentCustomer = this.emptyCustomer();
-    this.isModalOpen = true;
+    this.showModal(true);
     this.isNewCustomer = true;
   }
 
@@ -66,7 +66,7 @@ export class CustomerContainerComponent implements OnInit {
       this.submitForm();
     }
     if (modalAction === ModalAction.Cancel) {
-      this.closeModal();
+      this.showModal(false);
     }
   }
 
@@ -74,11 +74,20 @@ export class CustomerContainerComponent implements OnInit {
     this.customerFormComponent.onSubmit();
   }
 
-  public handleFormSubmit(customer: Customer) {
+  public handleSaveAction(customer: Customer) {
     if (customer) {
-      console.log(customer);
-      this.closeModal();
+      // call api to save new customer
+      this.showModal(false);
       this.currentCustomer = this.emptyCustomer();
+    }
+  }
+
+  public handleEditAction(customer: Customer) {
+    if (customer) {
+      // call api to edit new customer
+      this.isNewCustomer = false;
+      this.currentCustomer = customer;
+      this.showModal(true);
     }
   }
 
@@ -92,8 +101,7 @@ export class CustomerContainerComponent implements OnInit {
     };
   }
 
-  closeModal() {
-    this.isModalOpen = false;
-    this.isNewCustomer = false;
+  private showModal(flag: boolean) {
+    this.isModalOpen = flag;
   }
 }

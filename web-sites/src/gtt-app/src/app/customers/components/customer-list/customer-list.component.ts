@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Customer } from '../../models/customer.model';
 
@@ -12,29 +12,21 @@ import { Customer } from '../../models/customer.model';
 export class CustomerListComponent implements OnInit {
   @Input()
   customers!: Customer[];
-  modalTitle = '';
-  selectedCustomer!: Customer;
-  isModalOpen = false;
+
+  @Output()
+  editAction = new EventEmitter<Customer>();
 
   ngOnInit() {}
 
   onEditCustomer(customer: Customer): void {
-    this.selectedCustomer = { ...customer };
-    this.modalTitle = 'Editar Cliente';
-    this.isModalOpen = true;
+    this.editCustomer(customer);
   }
 
   onDeleteCustomer(customer: Customer) {
     this.customers = this.customers.filter((c) => c !== customer);
   }
 
-  onSaveCustomer(customer: Customer): void {
-    const index = this.customers.findIndex((c) => c.email === customer.email);
-    if (index !== -1) {
-      this.customers[index] = customer;
-    } else {
-      this.customers.push(customer);
-    }
-    // this.closeModal();
+  private editCustomer(customer: Customer): void {
+    this.editAction.emit(customer);
   }
 }
