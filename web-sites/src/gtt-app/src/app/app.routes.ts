@@ -4,6 +4,7 @@ import { MainLayoutComponent } from './layout/main-layout/main-layout.component'
 import { customerRoutes } from './customers/customers.routes';
 import { ordersRoutes } from './orders/orders.routes';
 import { dashboardRoutes } from './dashboard/dashboard.routes';
+import { authGuard } from './auth/guards/auth/auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
@@ -11,6 +12,7 @@ export const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [...dashboardRoutes, ...customerRoutes, ...ordersRoutes],
+    canActivate: [authGuard],
   },
   ...authRoutes,
   { path: '**', redirectTo: 'dashboard' },
