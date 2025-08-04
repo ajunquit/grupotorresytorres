@@ -27,7 +27,7 @@ builder.Services.AddCors(options =>
 
 builder.Services
     .AddApplicationModule(builder.Configuration)
-    .AddInfrastructure(builder.Configuration);
+    .AddInfrastructureModule(builder.Configuration);
 
 var app = builder.Build();
 

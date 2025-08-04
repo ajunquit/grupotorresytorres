@@ -7,7 +7,7 @@ namespace Auth.Service.Infrastructure
 {
     public static class InfrastructureModule
     {
-        public static IServiceCollection AddInfrastructure(
+        public static IServiceCollection AddInfrastructureModule(
             this IServiceCollection services, 
             IConfiguration configuration)
         {
