@@ -9,7 +9,7 @@ import {
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../../model/user.model';
-import { LoginRequest } from '../../model/login.model';
+import { LoginRequest } from '../../model/login-request.model';
 
 @Component({
   selector: 'app-login',
