@@ -10,13 +10,13 @@ namespace Auth.Service.API.Controllers
     [Route("api/v1/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly LoginQueryHandler _loginQueryHandler;
-        private readonly RegisterCommandHandler _registerCommandHandler;
+        private readonly ILoginQueryHandler _loginQueryHandler;
+        private readonly IRegisterCommandHandler _registerCommandHandler;
         
 
         public AuthController(
-            LoginQueryHandler loginQueryHandler,
-            RegisterCommandHandler registerCommandHandler)
+            ILoginQueryHandler loginQueryHandler,
+            IRegisterCommandHandler registerCommandHandler)
         {
             _loginQueryHandler = loginQueryHandler;
             _registerCommandHandler = registerCommandHandler;

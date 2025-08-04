@@ -64,7 +64,6 @@ export class LoginComponent {
 
   private persistToken() {
     localStorage.setItem('user', JSON.stringify(this.authenticatedUser));
-    localStorage.setItem('token', this.authenticatedUser.token);
   }
 
   private redirectTo(url: string): void {

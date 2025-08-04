@@ -12,7 +12,7 @@ namespace Auth.Service.Application
             IConfiguration configuration)
         {
             services.AddScoped<ILoginQueryHandler, LoginQueryHandler>();
-            services.AddScoped<RegisterCommandHandler>();
+            services.AddScoped<IRegisterCommandHandler, RegisterCommandHandler>();
 
             return services;
         }
