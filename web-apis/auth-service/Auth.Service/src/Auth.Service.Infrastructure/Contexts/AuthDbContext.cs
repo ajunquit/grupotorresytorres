@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Auth.Service.Infrastructure.Contexts
 {
-    public class AppDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>, IAppDbContext
+    public class AuthDbContext : IdentityDbContext<IdentityUser, IdentityRole, string>, IAuthDbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
         {
 
         }

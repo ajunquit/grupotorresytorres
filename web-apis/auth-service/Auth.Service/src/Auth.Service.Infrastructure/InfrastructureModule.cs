@@ -17,11 +17,11 @@ namespace Auth.Service.Infrastructure
 
         private static void RegisterDbContexts(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<IAppDbContext, AppDbContext>(options =>
+            services.AddDbContext<IAuthDbContext, AuthDbContext>(options =>
                 options.UseSqlServer(
                     configuration.GetConnectionString("Local"),
                     sqlOptions =>
-                        sqlOptions.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName)
+                        sqlOptions.MigrationsAssembly(typeof(AuthDbContext).Assembly.FullName)
                 )
             );
         }
