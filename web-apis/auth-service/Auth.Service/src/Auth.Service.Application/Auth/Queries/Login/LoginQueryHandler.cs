@@ -37,7 +37,9 @@ namespace Auth.Service.Application.Auth.Queries.Login
         {
             var claims = new[]
             {
-                new Claim(ClaimTypes.Name, user.UserName!)
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id!),
+                new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName!),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()!),
             };
 
             var jwtKey = _configuration["Jwt:Key"];
