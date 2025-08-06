@@ -1,5 +1,6 @@
 ﻿using Business.Service.Application.Customer.Services;
 using Business.Service.Application.Order.Services;
+using Business.Service.Application.OrderEntity.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
