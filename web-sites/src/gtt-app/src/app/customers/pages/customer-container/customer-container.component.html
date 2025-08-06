@@ -8,7 +8,7 @@
 </div>
 
 <div class="grid grid-cols-1 gap-4 mt-6">
-  <app-customer-list [customers]="customers" (editAction)="handleEditAction($event)"></app-customer-list>
+  <app-customer-list [customers]="customers" (editAction)="handleEditAction($event)" (deleteAction)="handleDeleteAction($event)"></app-customer-list>
 </div>
 
 <app-modal [title]="isNewCustomer ? 'Crear Cliente' : 'Editar Cliente'" [show]="isModalOpen"

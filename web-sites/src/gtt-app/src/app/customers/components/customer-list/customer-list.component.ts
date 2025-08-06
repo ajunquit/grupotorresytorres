@@ -16,6 +16,9 @@ export class CustomerListComponent {
   @Output()
   editAction = new EventEmitter<Customer>();
 
+  @Output()
+  deleteAction = new EventEmitter<Customer>();
+
   public title: string = 'Clientes';
 
   onEditCustomer(customer: Customer): void {
@@ -23,7 +26,11 @@ export class CustomerListComponent {
   }
 
   onDeleteCustomer(customer: Customer) {
-    this.customers = this.customers.filter((c) => c !== customer);
+    this.deleteCustomer(customer);
+  }
+
+  private deleteCustomer(customer: Customer) {
+    this.deleteAction.emit(customer);
   }
 
   private editCustomer(customer: Customer): void {

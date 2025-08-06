@@ -59,6 +59,7 @@ export class CustomerFormComponent implements OnInit {
   private prepareForm(): void {
     this.customerForm = this.formBuilder.group({
       id: [this.customer.id || ''],
+      ruc: [this.customer.ruc || '', Validators.required],
       name: [this.customer.name || '', Validators.required],
       email: [
         this.customer.email || '',

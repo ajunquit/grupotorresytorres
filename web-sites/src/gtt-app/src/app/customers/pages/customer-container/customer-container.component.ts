@@ -37,11 +37,7 @@ export class CustomerContainerComponent implements OnInit {
   }
 
   private internalinit(): void {
-    this.customers = this.getCustomers();
-  }
-
-  private getCustomers(): Customer[] {
-    return MOCK_CUSTOMERS;
+    this.loadCustomers();
   }
 
   public onNewCustomer(): void {
@@ -71,6 +67,8 @@ export class CustomerContainerComponent implements OnInit {
     } else if (customer.id) {
       this.handleUpdateCustomer(customer);
     }
+
+    this.showModal(false);
   }
 
   private handleCreateCustomer(customer: Customer): void {
@@ -105,10 +103,17 @@ export class CustomerContainerComponent implements OnInit {
     console.error(`Error al ${action} cliente`, error);
   }
 
-  public handleEditAction(customer: Customer) {
+  public handleEditAction(customer: Customer): void {
     this.isNewCustomer = false;
     this.currentCustomer = customer;
     this.showModal(true);
+  }
+
+  public handleDeleteAction(customer: Customer): void {
+    this.customerService.delete(customer.id).subscribe({
+      next: () => this.loadCustomers(),
+      error: (err) => this.handleError(err, 'Delete'),
+    });
   }
 
   private loadCustomers() {
@@ -120,11 +125,12 @@ export class CustomerContainerComponent implements OnInit {
 
   private emptyCustomer(): Customer {
     return {
-      id: '',
+      id: '00000000-0000-0000-0000-000000000000',
       name: '',
       email: '',
       phone: '',
       address: '',
+      ruc: '',
     };
   }
 

@@ -7,6 +7,7 @@ import { MOCK_ORDERS } from '../../models/order-data-mock';
 import { Order } from '../../models/order.model';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { HttpClientModule } from '@angular/common/http';
+import { OrderService } from '../../services/order.service';
 
 @Component({
   selector: 'app-order-container',
@@ -30,12 +31,21 @@ export class OrderContainerComponent implements OnInit {
   public currentOrder: Order = this.emptyOrder();
   public orders!: Order[];
 
+  constructor(private orderService: OrderService) {}
+
   ngOnInit(): void {
     this.internalInit();
   }
 
   private internalInit(): void {
-    this.orders = this.getOrders();
+    this.loadOrders();
+  }
+
+  private loadOrders() {
+    this.orderService.getAll().subscribe({
+      next: (data) => (this.orders = data),
+      error: (err) => console.error('Error al cargar ordenes', err),
+    });
   }
 
   private getOrders(): Order[] {
