@@ -1,17 +1,22 @@
-import { HttpClientModule } from '@angular/common/http';
+import {
+  HttpClientModule,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
-
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { tokenInterceptor } from './app/core/interceptors/token/token.interceptor';
 
 bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(routes),
     importProvidersFrom(HttpClientModule, BrowserAnimationsModule),
+    provideHttpClient(withInterceptors([tokenInterceptor])),
     provideAnimationsAsync(),
   ],
 });
