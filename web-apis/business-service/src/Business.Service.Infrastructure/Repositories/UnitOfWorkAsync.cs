@@ -1,5 +1,6 @@
 ﻿using Business.Service.Domain.Common.Interfaces;
 using Business.Service.Domain.Orders;
+using Business.Service.Domain.Orders.Interfaces;
 using Business.Service.Infrastructure.Persistence.Contexts;
 
 namespace Business.Service.Infrastructure.Repositories

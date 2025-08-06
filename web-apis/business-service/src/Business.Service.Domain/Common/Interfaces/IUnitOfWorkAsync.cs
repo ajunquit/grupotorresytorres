@@ -1,4 +1,5 @@
 ﻿using Business.Service.Domain.Orders;
+using Business.Service.Domain.Orders.Interfaces;
 
 namespace Business.Service.Domain.Common.Interfaces
 {
