@@ -1,12 +1,13 @@
-﻿using CustomerEntity = Business.Service.Domain.Customers.Entity.Customer;
+﻿using Business.Service.Application.Customer.Dtos;
+
 namespace Business.Service.Application.Customer.Services
 {
     public interface ICustomerAppService
     {
-        Task<CustomerEntity> AddCustomerAsync(CustomerEntity customer);
-        Task<IEnumerable<CustomerEntity>> GetAllCustomersAsync();
-        Task<CustomerEntity?> GetCustomerByIdAsync(Guid id);
-        Task<bool> EditCustomerAsync(Guid id, CustomerEntity customer);
+        Task<CustomerResponse> AddCustomerAsync(CustomerRequest request);
+        Task<IEnumerable<CustomerResponse>> GetAllCustomersAsync();
+        Task<CustomerResponse?> GetCustomerByIdAsync(Guid id);
+        Task<bool> EditCustomerAsync(Guid id, CustomerRequest request);
         Task<bool> DeleteCustomerAsync(Guid id);
     }
 }

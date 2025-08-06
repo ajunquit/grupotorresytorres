@@ -1,9 +1,6 @@
-﻿using Business.Service.Domain.Common.Entities;
-using Business.Service.Domain.Common.Entities.Interfaces;
-
-namespace Business.Service.Domain.Customers.Entity
+﻿namespace Business.Service.Application.Customer.Dtos
 {
-    public class Customer : BaseAuditableEntity, IBaseEntity
+    public class CustomerRequest
     {
         public Guid Id { get; set; }
         public required string Name { get; set; }

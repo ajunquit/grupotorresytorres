@@ -1,5 +1,5 @@
-﻿using Business.Service.Application.Customer.Services;
-using Business.Service.Domain.Customers.Entity;
+﻿using Business.Service.Application.Customer.Dtos;
+using Business.Service.Application.Customer.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,9 +18,9 @@ namespace Business.Service.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddCustomer([FromBody] Customer customer)
+        public async Task<IActionResult> AddCustomer([FromBody] CustomerRequest request)
         {
-            var result = await _customerAppService.AddCustomerAsync(customer);
+            var result = await _customerAppService.AddCustomerAsync(request);
             return CreatedAtAction(nameof(GetCustomerById), new { id = result.Id }, result);
         }
 
@@ -41,9 +41,9 @@ namespace Business.Service.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditCustomer(Guid id, [FromBody] Customer customer)
+        public async Task<IActionResult> EditCustomer(Guid id, [FromBody] CustomerRequest request)
         {
-            var result = await _customerAppService.EditCustomerAsync(id, customer);
+            var result = await _customerAppService.EditCustomerAsync(id, request);
             if (!result)
                 return NotFound();
             return NoContent();
