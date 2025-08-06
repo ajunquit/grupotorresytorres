@@ -3,9 +3,11 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -19,12 +21,15 @@ import { Order } from '../../models/order.model';
   templateUrl: './order-list.component.html',
   styleUrl: './order-list.component.scss',
 })
-export class OrderListComponent implements OnInit, OnDestroy {
+export class OrderListComponent implements OnInit, OnDestroy, OnChanges {
   @Input()
   orders!: Order[];
 
   @Output()
   editAction = new EventEmitter<Order>();
+
+  @Output()
+  deleteAction = new EventEmitter<Order>();
 
   public config: OrderConfig = {
     title: 'Pedidos',
@@ -39,9 +44,13 @@ export class OrderListComponent implements OnInit, OnDestroy {
     this.internalInit();
   }
 
-  // mata la subscription
+  // mata la subscription la busqueda
   ngOnDestroy(): void {
     this.subscription?.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.internalInit();
   }
 
   public internalInit(): void {
@@ -82,10 +91,14 @@ export class OrderListComponent implements OnInit, OnDestroy {
   }
 
   public onDeleteOrder(order: Order) {
-    this.orders = this.orders.filter((c) => c !== order);
+    this.deleteOrder(order);
   }
 
   private editOrder(order: Order): void {
     this.editAction.emit(order);
+  }
+
+  private deleteOrder(order: Order): void {
+    this.deleteAction.emit(order);
   }
 }

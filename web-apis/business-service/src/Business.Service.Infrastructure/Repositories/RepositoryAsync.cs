@@ -1,4 +1,5 @@
 ﻿using Business.Service.Domain.Common.Interfaces;
+using Business.Service.Domain.Customers.Entity;
 using Business.Service.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 

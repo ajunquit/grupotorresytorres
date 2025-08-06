@@ -6,8 +6,8 @@ namespace Business.Service.Infrastructure.Persistence.Contexts
 {
     public class BusinessDbContext : DbContext, IBusinessDbContext
     {
-        DbSet<Order> Orders { get; set; }
-        DbSet<Customer> Customers { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         public BusinessDbContext(DbContextOptions<BusinessDbContext> options) : base(options)
         {
         }

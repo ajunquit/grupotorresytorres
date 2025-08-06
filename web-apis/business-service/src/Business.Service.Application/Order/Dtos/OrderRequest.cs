@@ -1,6 +1,4 @@
-﻿using Business.Service.Domain.Orders.Enums;
-
-namespace Business.Service.Application.Order.Dtos
+﻿namespace Business.Service.Application.Order.Dtos
 {
     public class OrderRequest
     {
@@ -11,7 +9,7 @@ namespace Business.Service.Application.Order.Dtos
         public required DateTime OrderDate { get; set; }
         public DateTime? DeliveryDate { get; set; }
         public required decimal TotalAmount { get; set; }
-        public EnumOrderStatus Status { get; set; }
+        public required string Status { get; set; }
         public string? Notes { get; set; }
     }
 }

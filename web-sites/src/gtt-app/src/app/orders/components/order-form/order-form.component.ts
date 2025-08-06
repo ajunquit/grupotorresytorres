@@ -15,8 +15,8 @@ import {
 } from '@angular/forms';
 import { Order } from '../../models/order.model';
 import { Customer } from '../../../customers/models/customer.model';
-import { MOCK_CUSTOMERS } from '../../../customers/models/customer-data-mock';
 import { MOCK_ORDER_STATUS_OPTIONS } from '../../models/order-data-mock';
+import { CustomerService } from '../../../customers/services/customer.service';
 
 @Component({
   selector: 'app-order-form',
@@ -29,7 +29,7 @@ export class OrderFormComponent {
   public title: string = 'Nuevo Pedido';
   public orderForm!: FormGroup;
   public orderStatusOptions = MOCK_ORDER_STATUS_OPTIONS;
-  public customers: Customer[] = MOCK_CUSTOMERS;
+  public customers: Customer[] = [];
 
   @Input()
   public order!: Order;
@@ -37,7 +37,10 @@ export class OrderFormComponent {
   @Output()
   public formSubmit = new EventEmitter<Order>();
 
-  constructor(protected formBuilder: FormBuilder) {}
+  constructor(
+    protected formBuilder: FormBuilder,
+    private customerService: CustomerService
+  ) {}
 
   ngOnInit(): void {
     this.internalInit();
@@ -60,6 +63,14 @@ export class OrderFormComponent {
 
   private internalInit(): void {
     this.prepareForm();
+    this.loadCustomers();
+  }
+
+  private loadCustomers() {
+    this.customerService.getAll().subscribe({
+      next: (data) => (this.customers = data),
+      error: (err) => console.error('Error al cargar clientes', err),
+    });
   }
 
   private prepareForm(): void {
@@ -78,7 +89,9 @@ export class OrderFormComponent {
 
   private formatDate(date: Date | undefined): string | null {
     if (!date) return null;
-    return date.toISOString().split('T')[0];
+
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    return dateObj.toISOString().split('T')[0];
   }
 
   private patchForm(order: Order) {

@@ -3,8 +3,8 @@ using Business.Service.Application.Order.Services;
 using Business.Service.Domain.Common.Enums;
 using Business.Service.Domain.Common.Interfaces;
 using Business.Service.Domain.Common.Mappers;
+using Business.Service.Domain.Orders.Enums;
 using EntityOrder = Business.Service.Domain.Orders.Entity.Order;
-using EntityCustomer = Business.Service.Domain.Customers.Entity.Customer;
 
 namespace Business.Service.Application.OrderEntity.Services
 {
@@ -15,15 +15,43 @@ namespace Business.Service.Application.OrderEntity.Services
         public async Task<OrderResponse> AddOrderAsync(OrderRequest request)
         {
             request.Id = Guid.NewGuid();
-            var order = MapperExtension.MapTo<EntityOrder>(request); 
+            var order = MapToOrder(request, string.Empty);
             var result = await _unitOfWorkAsync.OrderRepository.InsertAsync(order);
+            await _unitOfWorkAsync.SaveChangesAsync();
             return MapperExtension.MapTo<OrderResponse>(request);
         }
 
         public async Task<IEnumerable<OrderResponse>> GetAllOrdersAsync()
         {
             var orders = await _unitOfWorkAsync.OrderRepository.GetAllAsync();
-            return MapperExtension.MapTo<IEnumerable<OrderResponse>>(orders.Where(x => x.IsActive == EnumActiveRecord.Yes));
+            orders = GetOrders(orders);
+
+            return MapToOrders(orders);
+        }
+
+        private static IEnumerable<EntityOrder> GetOrders(IEnumerable<EntityOrder> orders)
+        {
+            return orders
+                .Select(MapEntituOrder)
+                .ToList();
+        }
+
+        private static EntityOrder MapEntituOrder(EntityOrder o)
+        {
+            return new EntityOrder
+            {
+                Id = o.Id,
+                OrderNumber = o.OrderNumber,
+                CustomerId = o.CustomerId,
+                CustomerName = o.Customer.Name,
+                OrderDate = o.OrderDate,
+                DeliveryDate = o.DeliveryDate,
+                TotalAmount = o.TotalAmount,
+                Status = o.Status,
+                Notes = o.Notes,
+                Customer = o.Customer,
+                CreatedBy = string.Empty
+            };
         }
 
         public async Task<OrderResponse?> GetOrderByIdAsync(Guid id)
@@ -40,14 +68,26 @@ namespace Business.Service.Application.OrderEntity.Services
 
             existing.CustomerId = request.CustomerId;
             existing.OrderDate = request.OrderDate;
-            existing.Status = request.Status;
+            existing.Status = GetStatus(request.Status);
             existing.TotalAmount = request.TotalAmount;
             existing.UpdatedDate = DateTime.UtcNow;
             existing.UpdatedBy = string.Empty;
+            existing.Notes = request.Notes;
 
             await _unitOfWorkAsync.OrderRepository.UpdateAsync(existing);
+            await _unitOfWorkAsync.SaveChangesAsync();
             return true;
         }
+
+        private static EnumOrderStatus GetStatus(string status) =>
+        status switch
+        {
+            "pendiente" => EnumOrderStatus.Pendiente,
+            "completado" => EnumOrderStatus.Completado,
+            "cancelado" => EnumOrderStatus.Cancelado,
+            _ => throw new ArgumentOutOfRangeException(nameof(status), $"Valor de estado no válido: {status}")
+        };
+
 
         public async Task<bool> DeleteOrderAsync(Guid id)
         {
@@ -59,6 +99,7 @@ namespace Business.Service.Application.OrderEntity.Services
             existing.UpdatedDate = DateTime.UtcNow;
 
             await _unitOfWorkAsync.OrderRepository.UpdateAsync(existing); // delete logic marks as inactive
+            await _unitOfWorkAsync.SaveChangesAsync();
             return true;
         }
 
@@ -73,13 +114,39 @@ namespace Business.Service.Application.OrderEntity.Services
                 OrderDate = request.OrderDate,
                 DeliveryDate = request.DeliveryDate,
                 TotalAmount = request.TotalAmount,
-                Status = request.Status,
+                Status = GetStatus(request.Status),
                 Notes = request.Notes,
                 IsActive = EnumActiveRecord.Yes,
                 CreatedBy = createdBy,
                 CreatedDate = DateTime.UtcNow,
                 UpdatedBy = null,
                 UpdatedDate = null
+            };
+        }
+
+        public static IEnumerable<OrderResponse> MapToOrders(IEnumerable<EntityOrder> orders)
+        {
+            return orders.Select(o => new OrderResponse
+            {
+                Id = o.Id,
+                OrderNumber = o.OrderNumber,
+                CustomerId = o.CustomerId,
+                CustomerName = o.CustomerName,
+                OrderDate = o.OrderDate,
+                DeliveryDate = o.DeliveryDate,
+                TotalAmount = o.TotalAmount,
+                Status = GetDescription(o.Status),
+                Notes = o.Notes
+            });
+        }
+        private static string GetDescription(EnumOrderStatus status)
+        {
+            return status switch
+            {
+                EnumOrderStatus.Pendiente => "pendiente",
+                EnumOrderStatus.Completado => "completado",
+                EnumOrderStatus.Cancelado => "cancelado",
+                _ => "Unknown status"
             };
         }
 

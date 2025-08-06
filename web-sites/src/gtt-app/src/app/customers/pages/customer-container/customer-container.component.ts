@@ -6,7 +6,6 @@ import { CustomerFormComponent } from '../../components/customer-form/customer-f
 import { CustomerListComponent } from '../../components/customer-list/customer-list.component';
 import { Customer } from '../../models/customer.model';
 import { CustomerService } from '../../services/customer.service';
-import { MOCK_CUSTOMERS } from '../../models/customer-data-mock';
 
 @Component({
   selector: 'app-customer-container',

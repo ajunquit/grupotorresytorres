@@ -9,7 +9,7 @@
 </div>
 
 <div class="grid grid-cols-1 gap-4 mt-6">
-  <app-order-list [orders]="orders" (editAction)="handleEditAction($event)"></app-order-list>
+  <app-order-list [orders]="orders" (editAction)="handleEditAction($event)" (deleteAction)="handleDeleteAction($event)"></app-order-list>
 </div>
 
 <app-modal [title]="isNewOrder ? 'Crear Orden' : 'Editar Orden'" [show]="isModalOpen"

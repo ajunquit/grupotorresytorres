@@ -74,12 +74,45 @@ export class OrderContainerComponent implements OnInit {
   public handleSaveAction(order: Order): void {
     if (!order) return;
 
-    console.log(order);
     if (this.isNewOrder) {
-      //this.handleCreateOrder(customer);
+      this.handleCreateOrder(order);
     } else if (order.id) {
-      //this.handleUpdateCustomer(customer);
+      this.handleUpdateOrder(order);
     }
+
+    this.showModal(false);
+  }
+
+  private handleCreateOrder(customer: Order): void {
+    this.orderService.create(customer).subscribe({
+      next: () => this.onCustomerActionSuccess(true),
+      error: (err) => this.handleError(err, 'create'),
+    });
+  }
+
+  private handleUpdateOrder(customer: Order): void {
+    if (!customer.id) return;
+
+    this.orderService.update(customer.id, customer).subscribe({
+      next: () => this.onCustomerActionSuccess(false),
+      error: (err) => this.handleError(err, 'update'),
+    });
+  }
+
+  private onCustomerActionSuccess(isNew: boolean): void {
+    this.loadOrders();
+    if (isNew) {
+      this.resetOrderForm();
+    }
+  }
+
+  private resetOrderForm(): void {
+    this.showModal(false);
+    this.currentOrder = this.emptyOrder();
+  }
+
+  private handleError(error: any, action: string): void {
+    console.error(`Error al ${action} cliente`, error);
   }
 
   public handleEditAction(order: Order) {
@@ -88,9 +121,16 @@ export class OrderContainerComponent implements OnInit {
     this.showModal(true);
   }
 
+  public handleDeleteAction(order: Order) {
+    this.orderService.delete(order.id).subscribe({
+      next: () => this.loadOrders(),
+      error: (err) => this.handleError(err, 'Delete'),
+    });
+  }
+
   private emptyOrder(): Order {
     return {
-      id: '',
+      id: '00000000-0000-0000-0000-000000000000',
       customerId: '',
       orderDate: new Date(),
       orderNumber: '',

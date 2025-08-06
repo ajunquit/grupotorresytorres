@@ -2,9 +2,9 @@
 {
     public enum EnumOrderStatus
     {
-        Pending = 1,
-        Completed = 2,
-        Cancelled = 3
+        Pendiente = 1,
+        Completado = 2,
+        Cancelado = 3
     }
     //public static string GetDescription(OrderStatus status)
     //{
