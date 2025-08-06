@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Business.Service.Application.Customer.Services;
+using Business.Service.Application.Order.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Business.Service.Application
@@ -9,7 +11,8 @@ namespace Business.Service.Application
             this IServiceCollection services,
             IConfiguration configuration)
         {
-            
+            services.AddScoped<ICustomerAppService, CustomerAppService>();
+            services.AddScoped<IOrderAppService, OrderAppService>();
             return services;
         }
     }
