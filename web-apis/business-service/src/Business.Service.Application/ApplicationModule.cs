@@ -1,4 +1,5 @@
 ﻿using Business.Service.Application.Customer.Services;
+using Business.Service.Application.Dashboard.Services;
 using Business.Service.Application.Order.Services;
 using Business.Service.Application.OrderEntity.Services;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ namespace Business.Service.Application
         {
             services.AddScoped<ICustomerAppService, CustomerAppService>();
             services.AddScoped<IOrderAppService, OrderAppService>();
+            services.AddScoped<ICounterAppService, CounterAppService>();
             return services;
         }
     }
