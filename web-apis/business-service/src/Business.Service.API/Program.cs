@@ -6,6 +6,12 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRouting(o =>
+{
+    o.LowercaseUrls = true;
+    o.LowercaseQueryStrings = true;
+});
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

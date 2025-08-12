@@ -5,6 +5,12 @@ using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRouting(o =>
+{
+    o.LowercaseUrls = true;
+    o.LowercaseQueryStrings = true;
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
