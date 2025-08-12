@@ -1,5 +1,5 @@
 <div class="bg-white rounded-lg shadow-md p-4">
   <h3 class="text-lg font-semibold mb-4">{{title}}</h3>
-  <app-doughnut-chart [title]="'Últimos 6 meses'" [labels]="chartProperties.labels"
-    [data]="chartProperties.data" [colors]="chartProperties.colors || []" />
+  <app-doughnut-chart *ngIf="chartProperties" [title]="'Últimos '+ LAST_MONTHS +' meses'" [labels]="chartProperties.labels || []"
+    [data]="chartProperties.data || []" [colors]="chartProperties.colors || []" />
 </div>

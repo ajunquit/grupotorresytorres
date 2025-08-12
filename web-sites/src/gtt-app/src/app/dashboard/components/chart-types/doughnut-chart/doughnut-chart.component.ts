@@ -34,7 +34,7 @@ export class DoughnutChartComponent implements AfterViewInit {
     new Chart(ctx, {
       type: 'doughnut',
       data: {
-        labels: this.labels,
+        labels: this.labels || [],
         datasets: [
           {
             data: this.data,
