@@ -69,6 +69,7 @@ namespace Business.Service.Application.OrderEntity.Services
             existing.CustomerId = request.CustomerId;
             existing.OrderDate = request.OrderDate;
             existing.Status = GetStatus(request.Status);
+            existing.DeliveryDate = request.DeliveryDate;
             existing.TotalAmount = request.TotalAmount;
             existing.UpdatedDate = DateTime.UtcNow;
             existing.UpdatedBy = string.Empty;
