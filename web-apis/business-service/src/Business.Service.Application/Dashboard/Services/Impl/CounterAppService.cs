@@ -2,10 +2,8 @@
 using Business.Service.Domain.Common.Enums;
 using Business.Service.Domain.Common.Interfaces;
 using Business.Service.Domain.Orders.Enums;
-using EntityCustomer = Business.Service.Domain.Customers.Entity.Customer;
-using EntityOrder = Business.Service.Domain.Orders.Entity.Order;
 
-namespace Business.Service.Application.Dashboard.Services
+namespace Business.Service.Application.Dashboard.Services.Impl
 {
     public class CounterAppService: ICounterAppService
     {
@@ -36,6 +34,11 @@ namespace Business.Service.Application.Dashboard.Services
                 else if (o.Status == EnumOrderStatus.Pendiente) pending++;
             }
 
+            return CreateCounterResponse(totalClients, totalOrders, completed, pending);
+        }
+
+        private static CounterResponse CreateCounterResponse(int totalClients, int totalOrders, int completed, int pending)
+        {
             return new CounterResponse
             {
                 TotalClients = totalClients,
@@ -44,7 +47,5 @@ namespace Business.Service.Application.Dashboard.Services
                 PendingOrders = pending
             };
         }
-
-
     }
 }
