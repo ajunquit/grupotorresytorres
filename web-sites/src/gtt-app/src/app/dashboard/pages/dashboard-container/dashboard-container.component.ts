@@ -1,17 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DashboardCardComponent } from '../../dashboard-card/dashboard-card.component';
-import { ClientsByMonthChartComponent } from '../../graphics-metrics/clients-by-month-chart/clients-by-month-chart.component';
-import { OrdersByMonthChartComponent } from '../../graphics-metrics/orders-by-month-chart/orders-by-month-chart.component';
-import { TopCustomersChartComponent } from '../../graphics-metrics/top-customers-chart/top-customers-chart.component';
-import { OrdersStatusChartComponent } from '../../graphics-metrics/orders-status-chart/orders-status-chart.component';
-import { AverageDeliveryTimeChartComponent } from '../../graphics-metrics/average-delivery-time-chart/average-delivery-time-chart.component';
+import { AverageDeliveryTimeChartComponent } from '../../components/chart-metrics/average-delivery-time-chart/average-delivery-time-chart.component';
+import { ClientsByMonthChartComponent } from '../../components/chart-metrics/clients-by-month-chart/clients-by-month-chart.component';
+import { OrdersByMonthChartComponent } from '../../components/chart-metrics/orders-by-month-chart/orders-by-month-chart.component';
+import { OrdersStatusChartComponent } from '../../components/chart-metrics/orders-status-chart/orders-status-chart.component';
+import { TopCustomersChartComponent } from '../../components/chart-metrics/top-customers-chart/top-customers-chart.component';
+import { DashboardCardComponent } from '../../components/dashboard-card/dashboard-card.component';
 import { DashboardCounter } from '../../models/counter.model';
 import { DashboardService } from '../../services/dashboard.service';
-import { error } from 'console';
 
 @Component({
-  selector: 'app-dashboard-home',
+  selector: 'app-dashboard-container',
   standalone: true,
   imports: [
     CommonModule,
@@ -22,9 +21,9 @@ import { error } from 'console';
     OrdersStatusChartComponent,
     AverageDeliveryTimeChartComponent,
   ],
-  templateUrl: './dashboard-home.component.html',
+  templateUrl: './dashboard-container.component.html',
 })
-export class DashboardHomeComponent implements OnInit {
+export class DashboardContainerComponent implements OnInit {
   public title: string = 'Resumen General';
   public counters: DashboardCounter = {
     completedOrders: 0,
